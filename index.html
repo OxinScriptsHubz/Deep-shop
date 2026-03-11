@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Shop Deep</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#fafafa;
+color:#333;
+}
+
+header{
+text-align:center;
+padding:20px;
+background:#111;
+color:white;
+}
+
+header h1{
+margin:0;
+font-size:28px;
+}
+
+header p{
+margin:5px 0 0;
+color:#ddd;
+}
+
+.hero{
+height:80vh;
+background:url("https://i.ibb.co/CyqwH8D/pretty-young-stylish-woman-pink-luxury-dress-using-mobile-phone-holding-shopping-bags.jpg") center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+color:white;
+text-shadow:0 2px 10px rgba(0,0,0,0.7);
+}
+
+.hero h2{
+font-size:40px;
+margin-bottom:20px;
+}
+
+.btn{
+background:#ff4d4d;
+color:white;
+padding:12px 25px;
+border:none;
+border-radius:25px;
+cursor:pointer;
+font-size:16px;
+}
+
+.btn:hover{
+background:#ff2222;
+}
+
+.products{
+padding:40px 20px;
+}
+
+.products h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+.carousel{
+display:flex;
+overflow-x:auto;
+gap:20px;
+scroll-behavior:smooth;
+padding-bottom:10px;
+}
+
+.card{
+min-width:220px;
+background:white;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+padding:15px;
+text-align:center;
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+.price{
+font-weight:bold;
+margin:10px 0;
+}
+
+.cart{
+padding:40px 20px;
+background:#f3f3f3;
+}
+
+.cart h2{
+text-align:center;
+}
+
+.cart-items{
+margin:15px 0;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+font-size:24px;
+padding:15px;
+border-radius:50%;
+text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>The Shop Deep</h1>
+<p>Fresh Finds, Best Prices</p>
+</header>
+
+<section class="hero">
+<h2>Welcome to The Shop Deep</h2>
+<button class="btn" onclick="scrollToProducts()">Shop Now</button>
+</section>
+
+<section class="products" id="products">
+<h2>Our Products</h2>
+
+<div class="carousel">
+
+<div class="card">
+<img src="https://i.ibb.co/S24Bs3b/Adidas-white-sneakers-from-every-angle.png">
+<h3>Adidas Sneakers</h3>
+<p class="price">₹2499</p>
+<button class="btn" onclick="addToCart('Adidas Sneakers',2499)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://i.ibb.co/8D9TyyNX/Nike-running-shoes-on-white-surface-1.png">
+<h3>Nike Running Shoes</h3>
+<p class="price">₹2999</p>
+<button class="btn" onclick="addToCart('Nike Running Shoes',2999)">Add to Cart</button>
+</div>
+
+</div>
+</section>
+
+<section class="cart">
+<h2>Your Cart</h2>
+
+<div class="cart-items" id="cartItems">
+No items yet
+</div>
+
+<input type="text" id="name" placeholder="Your Name">
+<input type="tel" id="phone" placeholder="Phone Number">
+
+<button class="btn" onclick="sendOrder()">Place Order</button>
+
+</section>
+
+<a class="whatsapp" href="https://wa.me/99999999" target="_blank">💬</a>
+
+<script>
+
+let cart=[];
+
+function scrollToProducts(){
+document.getElementById("products").scrollIntoView({behavior:"smooth"});
+}
+
+function addToCart(name,price){
+
+cart.push({name,price});
+
+displayCart();
+
+}
+
+function displayCart(){
+
+let cartDiv=document.getElementById("cartItems");
+
+if(cart.length===0){
+cartDiv.innerHTML="No items yet";
+return;
+}
+
+let html="<ul>";
+
+cart.forEach(item=>{
+html+=`<li>${item.name} - ₹${item.price}</li>`;
+});
+
+html+="</ul>";
+
+cartDiv.innerHTML=html;
+
+}
+
+function sendOrder(){
+
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+
+if(!name || !phone){
+alert("Please enter name and phone number");
+return;
+}
+
+let items=cart.map(i=>i.name+" - ₹"+i.price).join("%0D%0A");
+
+let subject="New Order - The Shop Deep";
+
+let body=`Customer Name: ${name}%0D%0APhone: ${phone}%0D%0A%0D%0AItems:%0D%0A${items}`;
+
+window.location.href=`mailto:silversilversrip@gmail.com?subject=${subject}&body=${body}`;
+
+}
+
+</script>
+
+</body>
+</html>
